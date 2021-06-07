@@ -196,6 +196,10 @@ else {
     ori_labels = Channel.empty()
 }
 
+if (process.executor == slurm && !params.slurm_nb_cores){
+    error "Error ~ Please set --slurm_nb_cores to use slurm executor."
+}
+
 process Transform_T1_Labels {
     cpus 1
 
