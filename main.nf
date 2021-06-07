@@ -197,6 +197,10 @@ else {
     ori_labels = Channel.empty()
 }
 
+if (!params.slurm_nb_cores && workflow.profile.contains("slurm")){
+    error "Error ~ Please set --slurm_nb_cores to use slurm executor."
+}
+
 process Transform_T1_Labels {
     cpus 1
 
