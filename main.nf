@@ -230,7 +230,7 @@ tracking_for_decompose
     .set{tracking_labels_for_decompose}
 
 process Decompose_Connectivity {
-    label big_mem
+    label "big_mem"
     cpus 1
     memory { params.decompose_memory_limit * task.attempt }
 
