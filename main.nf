@@ -39,6 +39,8 @@ if(params.help) {
     return
 }
 
+println(Runtime.runtime.availableProcessors())
+
 log.info "Run Connectivity Construction"
 log.info "============================="
 log.info ""
