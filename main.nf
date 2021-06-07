@@ -93,6 +93,7 @@ log.info "COMMIT: $params.processes_commit"
 log.info "AFD & RD computation: $params.processes_afd_rd"
 log.info "Average / Similarity: $params.processes_avg_similarity"
 log.info "Compute Connectivity: $params.processes_connectivity"
+log.info "Slurm number of cores: $params.slurm_nb_cores"
 log.info ""
 
 root = file(params.input)
