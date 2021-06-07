@@ -93,7 +93,6 @@ log.info "COMMIT: $params.processes_commit"
 log.info "AFD & RD computation: $params.processes_afd_rd"
 log.info "Average / Similarity: $params.processes_avg_similarity"
 log.info "Compute Connectivity: $params.processes_connectivity"
-log.info "Slurm number of RAM in GB: $params.slurm_nb_ram"
 log.info ""
 
 root = file(params.input)
@@ -197,8 +196,8 @@ else {
     ori_labels = Channel.empty()
 }
 
-if (!params.slurm_nb_ram && workflow.profile.contains("slurm")){
-    error "Error ~ Please set --slurm_nb_ram to use slurm executor."
+if (!params.max_decompose_running && workflow.profile.contains("slurm")){
+    error "Error ~ Please set --max_decompose_running to use slurm executor."
 }
 
 process Transform_T1_Labels {
@@ -234,7 +233,6 @@ tracking_for_decompose
     .set{tracking_labels_for_decompose}
 
 process Decompose_Connectivity {
-    label "big_mem"
     cpus 1
     memory { params.decompose_memory_limit * task.attempt }
 
@@ -252,10 +250,6 @@ process Decompose_Connectivity {
     no_remove_loops_arg = ""
     if (params.no_remove_loops) {
         no_remove_loops_arg = "--no_remove_loops"
-    }
-    no_remove_outliers_arg = ""
-    if (params.no_pruning) {
-        no_remove_outliers_arg = "--no_pruning"
     }
     no_remove_outliers_arg = ""
     if (params.no_remove_outliers) {
