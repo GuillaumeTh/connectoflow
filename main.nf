@@ -248,10 +248,6 @@ process Decompose_Connectivity {
         no_remove_loops_arg = "--no_remove_loops"
     }
     no_remove_outliers_arg = ""
-    if (params.no_pruning) {
-        no_remove_outliers_arg = "--no_pruning"
-    }
-    no_remove_outliers_arg = ""
     if (params.no_remove_outliers) {
         no_remove_outliers_arg = "--no_remove_outliers"
     }
