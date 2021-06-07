@@ -230,7 +230,7 @@ tracking_for_decompose
 
 process Decompose_Connectivity {
     cpus 1
-    memory { params.decompose_memory_limit * task.attempt }
+    maxForks {params.processes / 2}
 
     input:
     set sid, file(trackings), file(labels) from tracking_labels_for_decompose
@@ -276,7 +276,6 @@ data_for_kernels
 
 process Compute_Kernel {
     cpus 1
-    memory params.decompose_memory_limit
     publishDir = "${params.output_dir}/Compute_Kernel"
 
     input:
@@ -319,7 +318,6 @@ data_for_commit
 
 process Run_COMMIT {
     cpus params.processes_commit
-    memory params.commit_memory_limit
 
     input:
     set sid, file(bval), file(bvec), file(dwi), file(peaks), file(h5), file(kernels) from data_tracking_kernel_for_commit
@@ -385,7 +383,6 @@ anat_for_registration
     .set{anats_for_registration}
 process Register_Anat {
     cpus params.processes_register
-    memory '2 GB'
 
     input:
     set sid, file(native_anat), file(template) from anats_for_registration
