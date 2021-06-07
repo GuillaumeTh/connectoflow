@@ -61,7 +61,7 @@ log.info "Template: $params.template"
 log.info "Labels list: $params.labels_list"
 log.info "Labels image prefix: $params.labels_img_prefix"
 log.info "Output directory: $params.output_dir"
-log.info ""
+log.info "executor.$local.cpus"
 
 log.info "Options"
 log.info "======="
