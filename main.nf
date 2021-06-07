@@ -230,7 +230,7 @@ tracking_for_decompose
 
 process Decompose_Connectivity {
     cpus 1
-    maxForks { params.processes / 2 }
+    maxForks { $params.processes / 2 }
 
     input:
     set sid, file(trackings), file(labels) from tracking_labels_for_decompose
