@@ -230,6 +230,7 @@ tracking_for_decompose
 
 process Decompose_Connectivity {
     cpus 1
+    maxForks params.max_decompose_running
     memory { params.decompose_memory_limit * task.attempt }
 
     input:
