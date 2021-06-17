@@ -68,8 +68,8 @@ Channel.fromPath(file(params.labels_list))
 metrics_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
                     size: -1,
-                    maxDepth:2,
-                    flat: true) {it.parent.name}
+                    maxDepth:3,
+                    flat: true) {it.parent.parent.name}
 
 metrics_for_compute
     .groupTuple()
@@ -78,8 +78,8 @@ metrics_for_compute
 h5_labels_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Data/{*decompose_warped_mni.h5,*labels_warped_mni_int16.nii.gz}",
                     size: 2,
-                    maxDepth:2,
-                    flat: true) {it.parent.name}
+                    maxDepth:3,
+                    flat: true) {it.parent.parent.name}
 
 Channel.fromPath("$root/Average_Connections/avg_per_edges")
     .set{edges_for_similarity}
