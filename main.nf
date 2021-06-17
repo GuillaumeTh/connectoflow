@@ -65,7 +65,7 @@ root = file(params.input)
 Channel.fromPath(file(params.labels_list))
     .into{labels_list_for_compute;labels_list_for_visualize}
 
-all_metrics_for_compute = Channel
+metrics_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
                     size: -1,
                     maxDepth:3) {it.parent.parent.name}
