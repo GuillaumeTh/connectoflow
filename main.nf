@@ -66,7 +66,7 @@ Channel.fromPath(file(params.labels_list))
     .into{labels_list_for_compute;labels_list_for_visualize}
 
 metrics_for_compute = Channel
-    .fromFilePairs("$root/**/Transform_Metrics{*_mni.nii.gz}",
+    .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
                     size: -1,
                     maxDepth:1,
                     flat: true) {it.parent.name}
@@ -76,7 +76,7 @@ metrics_for_compute
     .set{all_metrics_for_compute}
 
 h5_labels_for_compute = Channel
-    .fromFilePairs("$root/**/Transform_Data{*decompose_warped_mni.h5,*labels_warped_mni_int16.nii.gz}",
+    .fromFilePairs("$root/**/Transform_Data/{*decompose_warped_mni.h5,*labels_warped_mni_int16.nii.gz}",
                     size: 2,
                     maxDepth:1,
                     flat: true) {it.parent.name}
@@ -85,7 +85,7 @@ Channel.fromPath("$root/Average_Connections/avg_per_edges")
     .set{edges_for_similarity}
 
 if (params.use_similarity_metric) {
-    h5_labels_for_compute
+    h5_labels_for_compute.view()
         .join(all_metrics_for_compute)
         .combine(edges_for_similarity)
         .combine(labels_list_for_compute)
