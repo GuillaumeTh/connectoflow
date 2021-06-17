@@ -65,15 +65,13 @@ root = file(params.input)
 Channel.fromPath(file(params.labels_list))
     .into{labels_list_for_compute;labels_list_for_visualize}
 
-metrics_for_compute = Channel
+all_metrics_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
                     size: -1,
                     maxDepth:3,
                     flat: true) {it.parent.parent.name}
 
-metrics_for_compute
-    .groupTuple().view()
-    .set{all_metrics_for_compute}
+
 
 h5_labels_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Data/{*decompose_warped_mni.h5,*labels_warped_mni_int16.nii.gz}",
