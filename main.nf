@@ -88,7 +88,7 @@ if (params.use_similarity_metric) {
         .join(all_metrics_for_compute)
         .combine(edges_for_similarity)
         .combine(labels_list_for_compute)
-        .set{h5_labels_similarity_list_for_compute}
+        .into{h5_labels_similarity_list_for_compute;lol}
     h5_labels_list_for_compute = Channel.empty()
 }
 else {
@@ -98,7 +98,7 @@ else {
         .set{h5_labels_list_for_compute}
     h5_labels_similarity_list_for_compute = Channel.empty()
 }
-h5_labels_similarity_list_for_compute.view()
+lol.view()
 process Compute_Connectivity_with_similiarity {
     cpus params.processes_connectivity
     publishDir = {"${params.output_dir}/$sid/Compute_Connectivity"}
