@@ -67,7 +67,6 @@ Channel.fromPath(file(params.labels_list))
 
 metrics_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
-                    size: -1,
                     maxDepth:3,
                     flat: true) {it.parent.parent.name}
 
