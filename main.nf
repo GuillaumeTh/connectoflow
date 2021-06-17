@@ -98,7 +98,7 @@ else {
         .set{h5_labels_list_for_compute}
     h5_labels_similarity_list_for_compute = Channel.empty()
 }
-lol.view()
+lol.subscribe{println it}
 process Compute_Connectivity_with_similiarity {
     cpus params.processes_connectivity
     publishDir = {"${params.output_dir}/$sid/Compute_Connectivity"}
