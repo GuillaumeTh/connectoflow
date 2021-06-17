@@ -68,10 +68,11 @@ Channel.fromPath(file(params.labels_list))
 all_metrics_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Metrics/{*_mni.nii.gz}",
                     size: -1,
-                    maxDepth:3,
-                    flat: true) {it.parent.parent.name}
+                    maxDepth:3) {it.parent.parent.name}
 
-
+metrics_for_compute
+    .groupTuple()
+    .set{all_metrics_for_compute}
 
 h5_labels_for_compute = Channel
     .fromFilePairs("$root/**/Transform_Data/{*decompose_warped_mni.h5,*labels_warped_mni_int16.nii.gz}",
