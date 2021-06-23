@@ -230,6 +230,7 @@ tracking_for_decompose
 
 process Decompose_Connectivity {
     cpus 1
+    maxForks params.max_decompose_running
     memory { params.decompose_memory_limit * task.attempt }
 
     input:
@@ -246,10 +247,6 @@ process Decompose_Connectivity {
     no_remove_loops_arg = ""
     if (params.no_remove_loops) {
         no_remove_loops_arg = "--no_remove_loops"
-    }
-    no_remove_outliers_arg = ""
-    if (params.no_pruning) {
-        no_remove_outliers_arg = "--no_pruning"
     }
     no_remove_outliers_arg = ""
     if (params.no_remove_outliers) {
