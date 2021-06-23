@@ -451,8 +451,8 @@ process Transform_Data {
 
 
 h5_for_similarity
-    .toSortedList()
-    .collect()
+    .toSortedList().view()
+    .map{[it]}
     .take(params.nbr_subjects_for_avg_connections)
     .collect()
     .set{all_h5_for_similarity}
